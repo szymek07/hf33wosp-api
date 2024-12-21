@@ -15,14 +15,16 @@ public interface CloudlogLastHrdRepository extends CrudRepository<LastHeard, Lon
                     " COL_MODE, " +
                     " COL_BAND, " +
                     " COL_FREQ, " +
-                    " COL_TIME_ON, " +
-                    " TIMEDIFF(UTC_TIME(), TIME(COL_TIME_ON)) AS TIME_AGO " +
+                    " max(COL_TIME_ON) as COL_TIME_ON, " +
+                    " TIMEDIFF(UTC_TIME(), TIME(max(COL_TIME_ON))) AS TIME_AGO " +
                     "FROM " +
                     " cloudlog.TABLE_HRD_CONTACTS_V01 " +
                     "WHERE " +
                     " DATEDIFF(COL_TIME_ON, UTC_DATE()) = 0 AND " +
                     " TIME_TO_SEC(TIMEDIFF(UTC_TIME(), TIME(COL_TIME_ON))) < :diffInSec AND " +
                     " station_id = :stationId " +
+                    "GROUP BY " +
+                    " COL_MODE, COL_BAND, COL_FREQ " +
                     "ORDER BY " +
                     " COL_TIME_ON DESC " +
                     "LIMIT " +
