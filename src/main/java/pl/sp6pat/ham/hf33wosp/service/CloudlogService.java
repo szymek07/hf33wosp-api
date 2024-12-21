@@ -21,8 +21,8 @@ public class CloudlogService {
     }
 
     public Leader getPoints(Integer stationId, String call) {
-        Leader leader = leaderRepository.findAwardedByCallNative(stationId, call);
-        System.out.println("Points for call " + call + " " + (leader != null? leader.getPoints(): "nie znaleziono QSO"));
+        Leader leader = leaderRepository.calculatePointsByCallNative(stationId, call);
+        System.out.println("Points for call " + call + ": " + (leader != null? leader.getPoints(): "nie znaleziono QSO"));
         return leader;
 
     }
