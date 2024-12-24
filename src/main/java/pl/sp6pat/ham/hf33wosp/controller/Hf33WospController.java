@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.sp6pat.ham.hf33wosp.repositories.LastHeard;
-import pl.sp6pat.ham.hf33wosp.repositories.Leader;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.LastHeard;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPoints;
 import pl.sp6pat.ham.hf33wosp.service.Hf33WospService;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class Hf33WospController {
     }
 
     @GetMapping("/points")
-    public Leader points(@PathParam("stationId") Integer stationId, @PathParam("call") String call) {
+    public OperatorPoints points(@PathParam("stationId") Integer stationId, @PathParam("call") String call) {
         //TODO: nieprawidłowe parametry
 //        if (stationId == null) {
 //            return "Incorrect params";

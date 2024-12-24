@@ -1,4 +1,4 @@
-package pl.sp6pat.ham.hf33wosp.repositories;
+package pl.sp6pat.ham.hf33wosp.repositories.cl;
 
 import lombok.Data;
 

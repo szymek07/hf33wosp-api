@@ -3,29 +3,35 @@ package pl.sp6pat.ham.hf33wosp.service;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import pl.sp6pat.ham.hf33wosp.repositories.*;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPointsRepository;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.CloudlogLastHrdRepository;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.LastHeard;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPoints;
+import pl.sp6pat.ham.hf33wosp.repositories.sc.ScheduleRepository;
 
 import java.util.List;
 
 @Service
 public class Hf33WospService {
 
-    private final CloudlogHrdContactsLeaderRepository leaderRepository;
+    private final OperatorPointsRepository leaderRepository;
     private final CloudlogLastHrdRepository lastHrdRepository;
+    private final ScheduleRepository scheduleRepository;
 
-    public Hf33WospService(CloudlogHrdContactsLeaderRepository leaderRepository, CloudlogLastHrdRepository lastHrdRepository) {
+    public Hf33WospService(OperatorPointsRepository leaderRepository, CloudlogLastHrdRepository lastHrdRepository, ScheduleRepository scheduleRepository) {
         this.leaderRepository = leaderRepository;
         this.lastHrdRepository = lastHrdRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     public List<LastHeard> getLastHeard(Integer stationId, Integer diffInSec, Integer limit) {
         return lastHrdRepository.findLastHeardNative(stationId, diffInSec, limit);
     }
 
-    public Leader getPoints(Integer stationId, String call) {
-        Leader leader = leaderRepository.calculatePointsByCallNative(stationId, call);
-        System.out.println("Points for call " + call + ": " + (leader != null? leader.getPoints(): "nie znaleziono QSO"));
-        return leader;
+    public OperatorPoints getPoints(Integer stationId, String call) {
+        OperatorPoints operatorPoints = leaderRepository.calculatePointsByCallNative(stationId, call);
+        System.out.println("Points for call " + call + ": " + (operatorPoints != null? operatorPoints.getPoints(): "nie znaleziono QSO"));
+        return operatorPoints;
 
     }
 
