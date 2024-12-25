@@ -14,8 +14,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
@@ -36,15 +34,12 @@ public class ScDbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("postgresqlDataSource") DataSource dataSource) {
-//        Map<String, Object> properties = new HashMap<>();
-//        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
 
         return builder
                 .dataSource(dataSource)
                 .packages("pl.sp6pat.ham.hf33wosp.repositories.sc")
                 .persistenceUnit("sc")
-//                .properties(properties)
                 .build();
     }
 

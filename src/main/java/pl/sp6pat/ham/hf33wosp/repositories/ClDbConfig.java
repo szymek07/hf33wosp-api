@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
@@ -40,15 +38,11 @@ public class ClDbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("mariadbDataSource") DataSource dataSource) {
-//        Map<String, Object> properties = new HashMap<>();
-//        properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
-
 
         return builder
                 .dataSource(dataSource)
                 .packages("pl.sp6pat.ham.hf33wosp.repositories.cl")
                 .persistenceUnit("cl")
-//                .properties(properties)
                 .build();
     }
 

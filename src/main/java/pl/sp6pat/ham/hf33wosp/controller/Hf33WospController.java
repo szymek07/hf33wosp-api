@@ -51,13 +51,13 @@ public class Hf33WospController {
         try {
             Resource image = hf33WospService.getImage(call);
             if (!image.exists()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Jeśli plik nie istnieje
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_TYPE, "image/png");
             return new ResponseEntity<>(image, headers, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Obsługa błędów
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
