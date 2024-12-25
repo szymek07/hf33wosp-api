@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.sp6pat.ham.hf33wosp.repositories.cl.LastHeard;
 import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPoints;
+import pl.sp6pat.ham.hf33wosp.repositories.sc.Schedule;
 import pl.sp6pat.ham.hf33wosp.service.Hf33WospService;
 
 import java.util.List;
@@ -60,4 +61,8 @@ public class Hf33WospController {
         }
     }
 
+    @GetMapping("/schedule")
+    public List<Schedule> getSchedule() {
+        return hf33WospService.getSchedule();
+    }
 }

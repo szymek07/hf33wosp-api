@@ -36,15 +36,15 @@ public class ScDbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("postgresqlDataSource") DataSource dataSource) {
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+//        Map<String, Object> properties = new HashMap<>();
+//        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
 
         return builder
                 .dataSource(dataSource)
                 .packages("pl.sp6pat.ham.hf33wosp.repositories.sc")
                 .persistenceUnit("sc")
-                .properties(properties)
+//                .properties(properties)
                 .build();
     }
 

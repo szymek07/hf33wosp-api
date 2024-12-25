@@ -7,8 +7,10 @@ import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPointsRepository;
 import pl.sp6pat.ham.hf33wosp.repositories.cl.CloudlogLastHrdRepository;
 import pl.sp6pat.ham.hf33wosp.repositories.cl.LastHeard;
 import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPoints;
+import pl.sp6pat.ham.hf33wosp.repositories.sc.Schedule;
 import pl.sp6pat.ham.hf33wosp.repositories.sc.ScheduleRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -39,5 +41,9 @@ public class Hf33WospService {
         Resource image = new ClassPathResource("static/sn32wosp_template_cert.png");
         //TODO: transform
         return image;
+    }
+
+    public List<Schedule> getSchedule() {
+        return scheduleRepository.findByDate(LocalDate.now());
     }
 }

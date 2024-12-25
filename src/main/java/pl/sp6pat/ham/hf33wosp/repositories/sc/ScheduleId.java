@@ -1,5 +1,7 @@
 package pl.sp6pat.ham.hf33wosp.repositories.sc;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -7,7 +9,6 @@ import java.time.LocalDate;
 
 @Data
 public class ScheduleId implements Serializable  {
-
     private LocalDate date;
     private String h00;
     private String h01;
@@ -33,5 +34,4 @@ public class ScheduleId implements Serializable  {
     private String h21;
     private String h22;
     private String h23;
-
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -27,28 +28,31 @@ import java.util.Map;
 )
 public class ClDbConfig {
 
+    @Primary
     @Bean(name = "mariadbDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.cl")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
+    @Primary
     @Bean(name = "mariadbEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder,
             @Qualifier("mariadbDataSource") DataSource dataSource) {
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
+//        Map<String, Object> properties = new HashMap<>();
+//        properties.put("hibernate.dialect", "org.hibernate.dialect.MariaDBDialect");
 
 
         return builder
                 .dataSource(dataSource)
                 .packages("pl.sp6pat.ham.hf33wosp.repositories.cl")
                 .persistenceUnit("cl")
-                .properties(properties)
+//                .properties(properties)
                 .build();
     }
 
+    @Primary
     @Bean(name = "mariadbTransactionManager")
     public PlatformTransactionManager transactionManager(
             @Qualifier("mariadbEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
@@ -56,3 +60,4 @@ public class ClDbConfig {
     }
 
 }
+
