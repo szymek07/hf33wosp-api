@@ -45,7 +45,7 @@ public class Hf33WospService {
     }
 
     public Resource getImage(String call) throws IOException {
-        Resource imageResource = new ClassPathResource("static/sn32wosp_template_cert.png");
+        Resource imageResource = new ClassPathResource("static/hf33wosp_template_cert.png");
         InputStream in = imageResource.getInputStream();
         BufferedImage image = ImageIO.read(in);
 
@@ -64,9 +64,8 @@ public class Hf33WospService {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ImageIO.write(image, "png", os);
-        Resource outputResource = new ByteArrayResource(os.toByteArray());
 
-        return outputResource;
+        return new ByteArrayResource(os.toByteArray());
     }
 
     public List<Schedule> getSchedule() {
