@@ -69,6 +69,6 @@ public class Hf33WospService {
     }
 
     public List<Schedule> getSchedule() {
-        return scheduleRepository.findByDate(LocalDate.now());
+        return scheduleRepository.findByDateGreaterThanEqual(LocalDate.now());
     }
 }

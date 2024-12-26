@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, ScheduleId> {
-    List<Schedule> findByDate(LocalDate date);
+    List<Schedule> findByDateGreaterThanEqual(LocalDate date);
 }
