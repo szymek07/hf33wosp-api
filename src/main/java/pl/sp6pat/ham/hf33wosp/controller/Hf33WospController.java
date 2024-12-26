@@ -8,8 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.sp6pat.ham.hf33wosp.repositories.LastHeard;
-import pl.sp6pat.ham.hf33wosp.repositories.Leader;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.LastHeard;
+import pl.sp6pat.ham.hf33wosp.repositories.cl.OperatorPoints;
+import pl.sp6pat.ham.hf33wosp.repositories.sc.Schedule;
 import pl.sp6pat.ham.hf33wosp.service.Hf33WospService;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class Hf33WospController {
     }
 
     @GetMapping("/points")
-    public Leader points(@PathParam("stationId") Integer stationId, @PathParam("call") String call) {
+    public OperatorPoints points(@PathParam("stationId") Integer stationId, @PathParam("call") String call) {
         //TODO: nieprawidłowe parametry
 //        if (stationId == null) {
 //            return "Incorrect params";
@@ -50,14 +51,18 @@ public class Hf33WospController {
         try {
             Resource image = hf33WospService.getImage(call);
             if (!image.exists()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Jeśli plik nie istnieje
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_TYPE, "image/png");
             return new ResponseEntity<>(image, headers, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Obsługa błędów
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    @GetMapping("/schedule")
+    public List<Schedule> getSchedule() {
+        return hf33WospService.getSchedule();
+    }
 }
