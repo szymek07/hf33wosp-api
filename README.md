@@ -1,5 +1,5 @@
-# hf33wosp-api
+# HF33WOSP
 
-podman buildx build --platform linux/amd64,linux/arm64 -t docker.io/szymek07/hf33wosp-api:latest .
+API for `https://hf33wosp.sp6zhp.pl`
 
-podman push  docker.io/szymek07/hf33wosp-api:latest
+
