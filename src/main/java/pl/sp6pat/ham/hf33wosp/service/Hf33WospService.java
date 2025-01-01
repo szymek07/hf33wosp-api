@@ -50,15 +50,26 @@ public class Hf33WospService {
         BufferedImage image = ImageIO.read(in);
 
         Graphics2D g = image.createGraphics();
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 250));
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+//        Font f = new Font("Arial", Font.BOLD, 90);
+        Font f = loadFont();
+        g.setFont(f);
+
 
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(call.toUpperCase());
         int textHeight = fm.getHeight();
         int x = (image.getWidth() - textWidth) / 2;
-        int y = (image.getHeight() - textHeight) / 2 + fm.getAscent(); // fm.getAscent() jest potrzebne, aby pionowo wyśrodkować tekst w obliczonym obszarze.
+        int y = ((image.getHeight() - textHeight) / 2 + fm.getAscent()) - 50; // fm.getAscent() jest potrzebne, aby pionowo wyśrodkować tekst w obliczonym obszarze.
 
+        Color shadowColor = new Color(100, 100, 100, 150);
+        int shadowOffset = 4;
+
+        g.setColor(shadowColor);
+        g.drawString(call.toUpperCase(), x + shadowOffset, y + shadowOffset);
+
+        g.setColor(Color.WHITE);
         g.drawString(call.toUpperCase(), x, y);
         g.dispose();
 
@@ -70,5 +81,21 @@ public class Hf33WospService {
 
     public List<Schedule> getSchedule() {
         return scheduleRepository.findByDateGreaterThanEqual(LocalDate.now());
+    }
+
+    private Font loadFont() {
+        Font customFont;
+        try {
+            InputStream fontStream = getClass().getResourceAsStream("/static/RobotoCondensed-VariableFont_wght.ttf");
+            if (fontStream == null) {
+                throw new RuntimeException("Nie znaleziono pliku czcionki w zasobach.");
+            }
+            customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream).deriveFont(Font.BOLD, 90f);
+            fontStream.close();
+            return customFont;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
