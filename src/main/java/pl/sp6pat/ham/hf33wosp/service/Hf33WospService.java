@@ -80,7 +80,8 @@ public class Hf33WospService {
     }
 
     public List<Schedule> getSchedule() {
-        return scheduleRepository.findByDateGreaterThanEqual(LocalDate.now());
+//        return scheduleRepository.findByDateGreaterThanEqual(LocalDate.now());
+        return scheduleRepository.findByOrderByDateAsc();
     }
 
     private Font loadFont() {

@@ -9,4 +9,7 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, ScheduleId> {
     List<Schedule> findByDateGreaterThanEqual(LocalDate date);
+
+    List<Schedule> findByOrderByDateAsc();
+
 }
